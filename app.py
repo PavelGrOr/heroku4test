@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
@@ -8,7 +10,7 @@ from resources.item import Item, ItemList
 from resources.store import Store, StoreList
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db' #is gonna live at the root folder of our project
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db') #use second one if first is not found. gonna live at the root folder of our project
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # disable flask sqlalchemy tracker to use it from sqlalchemy .
                                         # So this is only changing the extensions behaviours and not the underlying SQLAlchemy behaviour.
 app.secret_key = 'jose'
